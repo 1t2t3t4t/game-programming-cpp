@@ -69,9 +69,14 @@ void Game::ProcessInput()
 
     const Uint8 *keyboardStates = SDL_GetKeyboardState(nullptr);
     if (keyboardStates[SDL_SCANCODE_ESCAPE])
-    {
         mIsRunning = false;
-    }
+
+    mPaddleDir = 0;
+    if (keyboardStates[SDL_SCANCODE_W])
+        mPaddleDir += -1;
+    
+    if (keyboardStates[SDL_SCANCODE_S])
+        mPaddleDir += 1;
 }
 
 void Game::UpdateGame()
@@ -84,7 +89,13 @@ void Game::UpdateGame()
     mPrevTickTime = currentTick;
     deltaTime = std::clamp(deltaTime, 0.f, .05f);
 
-    SDL_Log("Delta Time %f", deltaTime);
+    if (mPaddleDir != 0)
+    {
+        mPaddle.y += mPaddleDir * 300.f * deltaTime;
+        const float minPaddlePos = WallThickness + 80 / 2;
+        const float maxPaddlePos = 600 - 80 / 2;
+        mPaddle.y = std::clamp(mPaddle.y, minPaddlePos, maxPaddlePos);
+    }
 }
 
 void Game::GenerateOutput()
