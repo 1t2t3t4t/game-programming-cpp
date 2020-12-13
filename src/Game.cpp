@@ -96,6 +96,19 @@ void Game::UpdateGame()
         const float maxPaddlePos = 600 - 80 / 2;
         mPaddle.y = std::clamp(mPaddle.y, minPaddlePos, maxPaddlePos);
     }
+
+    mBall.x += mBallVelo.x * deltaTime;
+    mBall.y += mBallVelo.y * deltaTime;
+    
+    if ((mBall.y - 10 / 2) <= WallThickness && mBallVelo.y < 0 || 
+        (mBall.y + 10 / 2) >= 600 && mBallVelo.y > 0)
+        mBallVelo.y *= -1;
+
+    if (std::abs(mBall.y - mPaddle.y) <= 80 / 2 &&
+        mBall.x <= mPaddle.x + 10 / 2 &&
+        mBall.x >= mPaddle.x - 10 / 2 &&
+        mBallVelo.x < 0)
+        mBallVelo.x *= -1;
 }
 
 void Game::GenerateOutput()

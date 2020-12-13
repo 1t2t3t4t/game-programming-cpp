@@ -24,4 +24,5 @@ private:
     Vector2 mBall { 400, 300 };
 
     int mPaddleDir = 0;
+    Vector2 mBallVelo { -200, 200 };
 };
