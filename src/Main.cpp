@@ -1,8 +1,14 @@
 #include <iostream>
-#include <SDL2/SDL.h>
+#include "Game.h"
 
 int main()
 {
-    printf("Hello World");
+    Game game;
+    const bool initSuccess = game.Initialize();
+    if (initSuccess)
+    {
+        game.RunLoop();
+    }
+    game.ShutDown();
     return 0;
 }
