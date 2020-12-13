@@ -1,4 +1,6 @@
 #include "Game.h"
+
+#include <algorithm>
 #include <SDL2/SDL.h>
 
 #pragma region Public
@@ -74,7 +76,15 @@ void Game::ProcessInput()
 
 void Game::UpdateGame()
 {
+    const Uint32 currentTick = SDL_GetTicks();
+    while (!SDL_TICKS_PASSED(SDL_GetTicks(), currentTick + 16))
+        ;
 
+    float deltaTime = (currentTick - mPrevTickTime) / 1000.f;
+    mPrevTickTime = currentTick;
+    deltaTime = std::clamp(deltaTime, 0.f, .05f);
+
+    SDL_Log("Delta Time %f", deltaTime);
 }
 
 void Game::GenerateOutput()

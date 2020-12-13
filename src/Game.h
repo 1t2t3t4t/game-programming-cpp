@@ -1,8 +1,7 @@
 #pragma once
-#include "Vector2.h"
 
-class SDL_Window;
-class SDL_Renderer;
+#include "Vector2.h"
+#include <SDL2/SDL.h>
 
 class Game final
 {
@@ -19,6 +18,7 @@ private:
     SDL_Window *mWindow = nullptr;
     SDL_Renderer *mRenderer = nullptr;
     bool mIsRunning = true;
+    Uint32 mPrevTickTime = 0;
 
     Vector2 mPaddle { 20, 300 };
     Vector2 mBall { 400, 300 };
