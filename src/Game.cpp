@@ -82,9 +82,23 @@ void Game::GenerateOutput()
     SDL_SetRenderDrawColor(mRenderer, 0, 0, 255, 255);
     SDL_RenderClear(mRenderer);
     
-    const SDL_Rect wall { 0, 0, 800, WallThickness };
     SDL_SetRenderDrawColor(mRenderer, 255, 255, 255, 255);
+
+    const SDL_Rect wall { 0, 0, 800, WallThickness };
     SDL_RenderFillRect(mRenderer, &wall);
+
+    const SDL_Rect ball{
+        static_cast<int>(mBall.x - 10 / 2),
+        static_cast<int>(mBall.y - 10 / 2),
+        10,
+        10};
+    SDL_RenderFillRect(mRenderer, &ball);
+    const SDL_Rect paddle{
+        static_cast<int>(mPaddle.x - 10 / 2),
+        static_cast<int>(mPaddle.y - 80 / 2),
+        10,
+        80};
+    SDL_RenderFillRect(mRenderer, &paddle);
 
     SDL_RenderPresent(mRenderer);
 }
