@@ -3,8 +3,6 @@
 
 #pragma region Public
 
-const int WallThickness = 20;
-
 const bool Game::Initialize()
 {
     int sdlResult = SDL_Init(SDL_INIT_VIDEO);
@@ -81,10 +79,6 @@ void Game::GenerateOutput()
 {
     SDL_SetRenderDrawColor(mRenderer, 0, 0, 255, 255);
     SDL_RenderClear(mRenderer);
-    
-    const SDL_Rect wall { 0, 0, 800, WallThickness };
-    SDL_SetRenderDrawColor(mRenderer, 255, 255, 255, 255);
-    SDL_RenderFillRect(mRenderer, &wall);
 
     SDL_RenderPresent(mRenderer);
 }
