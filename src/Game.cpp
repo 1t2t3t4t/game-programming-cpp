@@ -1,14 +1,25 @@
 #include "Game.h"
+#include "Actor.h"
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include "SpriteComponent.h"
 
 #pragma region Public
 
-const bool Game::Initialize()
+bool Game::Initialize()
 {
     int sdlResult = SDL_Init(SDL_INIT_VIDEO);
+
     if (sdlResult != 0)
     {
         SDL_Log("Unable to initialize SDL: %s", SDL_GetError());
+        return false;
+    }
+
+    const int imgResult = IMG_Init(IMG_INIT_PNG);
+    if (imgResult == 0)
+    {
+        SDL_Log("Unable to initialize SDL image: %s", IMG_GetError());
         return false;
     }
 
@@ -72,7 +83,35 @@ void Game::ProcessInput()
 
 void Game::UpdateGame()
 {
+    const float deltaTime = (SDL_GetTicks() - tickCount) / 1000.f;
+    tickCount = SDL_GetTicks();
 
+    mIsUpdate = true;
+    for (auto actor : mActors)
+    {
+        actor->Update(deltaTime);
+    }
+    mIsUpdate = false;
+
+    for (auto pending : mPendingAddActors)
+    {
+        mActors.emplace_back(pending);
+    }
+    mPendingAddActors.clear();
+
+    std::vector<Actor*> deadActors;
+    for (auto actor : mActors)
+    {
+        if (actor->GetState() == State::Dead)
+        {
+            deadActors.emplace_back(actor);
+        }
+    }
+
+    for (auto dead : deadActors)
+    {
+        delete dead;
+    }
 }
 
 void Game::GenerateOutput()
@@ -81,6 +120,38 @@ void Game::GenerateOutput()
     SDL_RenderClear(mRenderer);
 
     SDL_RenderPresent(mRenderer);
+}
+
+void Game::AddActor(Actor *actor)
+{
+    if (mIsUpdate)
+    {
+        mPendingAddActors.emplace_back(actor);
+    }
+    else
+    {
+        mActors.emplace_back(actor);
+    }
+}
+
+void Game::RemoveActor(Actor *actor)
+{
+
+}
+
+void Game::AddSprite(SpriteComponent *component)
+{
+    uint32_t insertIdx = 0;
+    for (uint32_t i = 0; i <= mDrawOrders.size(); i++)
+    {
+        if (mDrawOrders[i]->GetDrawOrder() > component->GetDrawOrder())
+        {
+            insertIdx = i;
+            break;
+        }
+    }
+
+    mDrawOrders.insert(mDrawOrders.begin() + insertIdx, component);
 }
 
 #pragma endregion 
