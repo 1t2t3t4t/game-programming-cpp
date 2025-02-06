@@ -1,6 +1,7 @@
 #pragma once
 
 class SDL_Window;
+class SDL_Renderer;
 
 class Game
 {
@@ -16,6 +17,7 @@ private:
     void ProcessInput();
 
 private:
-    SDL_Window* mWindow = nullptr;
+    SDL_Window *mWindow = nullptr;
+    SDL_Renderer *mRenderer = nullptr;
     bool b_IsRunning = true;
 };
