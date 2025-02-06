@@ -1,3 +1,4 @@
+#include "SDL3/SDL_log.h"
 #include <Game/Game.h>
 #include <SDL3/SDL.h>
 
@@ -26,10 +27,15 @@ bool Game::Init()
 }
 
 void Game::RunLoop()
-{}
+{
+    while (b_IsRunning)
+    {
+    }
+}
 
 void Game::Shutdown()
 {
+    SDL_Log("Game is shutting down");
     SDL_DestroyWindow(mWindow);
     SDL_Quit();
 }

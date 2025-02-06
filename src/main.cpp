@@ -1,5 +1,4 @@
 #include <Game/Game.h>
-#include <cstdio>
 
 int main() {
     Game game;
@@ -8,7 +7,7 @@ int main() {
         return 1;
     }
 
+    game.RunLoop();
 
-    printf("Done\n");
     return 0;
 }

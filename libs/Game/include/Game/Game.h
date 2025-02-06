@@ -10,9 +10,11 @@ public:
 
     bool Init();
     void RunLoop();
+
+private:
     void Shutdown();
 
 private:
     SDL_Window* mWindow = nullptr;
-    bool b_IsRunning = true;    
+    bool b_IsRunning = true;
 };
