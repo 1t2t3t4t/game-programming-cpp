@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.31)
+cmake_minimum_required(VERSION 3.25)
 
 project(CppGame)
 
@@ -19,4 +19,4 @@ add_subdirectory(libs)
 set(SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp)
 
 add_executable(${PROJECT_NAME} ${SOURCES})
-target_link_libraries(${PROJECT_NAME} SDL3-static Game)
+target_link_libraries(${PROJECT_NAME} SDL3-shared Game)

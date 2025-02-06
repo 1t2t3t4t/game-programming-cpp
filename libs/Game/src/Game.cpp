@@ -1,4 +1,3 @@
-#include "SDL3/SDL_log.h"
 #include <Game/Game.h>
 #include <SDL3/SDL.h>
 
