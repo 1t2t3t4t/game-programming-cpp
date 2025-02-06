@@ -1,0 +1,7 @@
+.DS_Store
+.xcode_cmake/
+.cache/
+build/
+
+.cache/*
+./compile_commands.json
