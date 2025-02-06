@@ -1,6 +1,8 @@
 #include <Game/Game.h>
+#include <SDL3/SDL.h>
 
-int main() {
+int main()
+{
     Game game;
     if (!game.Init())
     {

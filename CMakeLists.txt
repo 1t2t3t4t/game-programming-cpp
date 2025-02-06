@@ -5,6 +5,10 @@ project(CppGame)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+
 include(FetchContent)
 FetchContent_Declare(
     SDL
@@ -19,4 +23,4 @@ add_subdirectory(libs)
 set(SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp)
 
 add_executable(${PROJECT_NAME} ${SOURCES})
-target_link_libraries(${PROJECT_NAME} SDL3-shared Game)
+target_link_libraries(${PROJECT_NAME} SDL3::SDL3 Game)

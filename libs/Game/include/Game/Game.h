@@ -13,6 +13,7 @@ public:
 
 private:
     void Shutdown();
+    void ProcessInput();
 
 private:
     SDL_Window* mWindow = nullptr;

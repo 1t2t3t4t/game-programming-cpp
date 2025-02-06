@@ -29,6 +29,7 @@ void Game::RunLoop()
 {
     while (b_IsRunning)
     {
+        ProcessInput();
     }
 }
 
@@ -37,4 +38,18 @@ void Game::Shutdown()
     SDL_Log("Game is shutting down");
     SDL_DestroyWindow(mWindow);
     SDL_Quit();
+}
+
+void Game::ProcessInput()
+{
+    SDL_Event event;
+    while (SDL_PollEvent(&event))
+    {
+        switch (event.type)
+        {
+        case SDL_EVENT_QUIT:
+            b_IsRunning = false;
+            break;
+        }
+    }
 }
