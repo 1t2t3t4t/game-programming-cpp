@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.31)
 
 project(CppGame)
 
@@ -8,12 +8,14 @@ include(FetchContent)
 FetchContent_Declare(
     SDL
     GIT_REPOSITORY https://github.com/libsdl-org/SDL.git
-    GIT_TAG        release-2.30.11
+    GIT_TAG        release-3.2.2
 )
 
 FetchContent_MakeAvailable(SDL)
 
-add_subdirectory(Game)
+add_subdirectory(libs)
 
-add_executable(${PROJECT_NAME} main.cpp)
-target_link_libraries(${PROJECT_NAME} SDL2 Game)
+set(SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp)
+
+add_executable(${PROJECT_NAME} ${SOURCES})
+target_link_libraries(${PROJECT_NAME} SDL3-static Game)
