@@ -5,15 +5,11 @@
   {
     "label": "Build CMake",
     "command": "cmake -B build/ .",
-    "use_new_terminal": true,
     "allow_concurrent_runs": false,
-    "reveal": "always",
-    "reveal_target": "dock",
-    "hide": "never",
-    "shell": "system"
+    "hide": "on_success"
   },
   {
-    "label": "Run Game",
-    "command": "cmake -C build CppGame & ./build/CppGame"
+    "label": "Run Game (Mac)",
+    "command": "make -C build & ./build/bin/CppGame"
   }
 ]

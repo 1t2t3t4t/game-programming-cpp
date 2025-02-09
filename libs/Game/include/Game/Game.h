@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include <vector>
 
 class SDL_Window;
@@ -17,6 +18,7 @@ public:
     void RunLoop();
 
 private:
+    void Ready();
     void Shutdown();
     void ProcessInput();
 
@@ -29,5 +31,5 @@ private:
 
     bool b_IsRunning = true;
 
-    std::vector<GameObject *> mGameObjects;
+    std::vector<std::unique_ptr<GameObject>> mGameObjects;
 };

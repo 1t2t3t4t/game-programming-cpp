@@ -9,7 +9,7 @@ public:
     Wall(Rect rect) : mRect(rect) {}
 
     virtual void Update() override;
-    virtual void Draw() override;
+    virtual void Draw(SDL_Renderer *renderer) override;
 
 private:
     Rect mRect;

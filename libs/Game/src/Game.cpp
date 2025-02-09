@@ -1,5 +1,7 @@
 #include <Game/Game.h>
 #include <SDL3/SDL.h>
+#include <memory>
+#include "Math/Rect.h"
 #include "Wall.h"
 
 Game::~Game()
@@ -30,10 +32,15 @@ bool Game::Init()
         return false;
     }
 
-    Wall w({{1, 2}, {3, 4}});
-    w.Update();
-    mGameObjects.push_back(&w);
+    Ready();
     return true;
+}
+
+void Game::Ready()
+{
+    Rect rect({1, 3}, {20, 20});
+    std::unique_ptr<Wall> wall = std::make_unique<Wall>(rect);
+    mGameObjects.push_back(std::move(wall));
 }
 
 void Game::RunLoop()
@@ -77,7 +84,7 @@ void Game::ProcessInput()
 
 void Game::Update()
 {
-    for (auto object : mGameObjects)
+    for (auto& object : mGameObjects)
     {
         object->Update();
     }
@@ -85,9 +92,9 @@ void Game::Update()
 
 void Game::Draw()
 {
-    for (auto object : mGameObjects)
+    for (auto& object : mGameObjects)
     {
-        object->Draw();
+        object->Draw(mRenderer);
     }
 }
 
